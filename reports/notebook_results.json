@@ -1,12 +1,12 @@
 {
   "seed": 42,
   "versions": {
-    "python": "3.14.7",
-    "pandas": "3.0.6",
-    "numpy": "2.5.3",
-    "scikit-learn": "1.9.1",
-    "scipy": "1.18.1",
-    "matplotlib": "3.11.2",
+    "python": "3.12.14",
+    "pandas": "2.2.3",
+    "numpy": "2.3.5",
+    "scikit-learn": "1.8.0",
+    "scipy": "1.17.0",
+    "matplotlib": "3.10.8",
     "seaborn": "0.13.2"
   },
   "plausibility_limits": {
@@ -42,22 +42,31 @@
   },
   "split": {
     "method": "StratifiedGroupKFold (5 folds, first fold = test) grouped by predictor profile",
-    "train": 54867,
-    "test": 13716
+    "train": 54866,
+    "test": 13717
   },
   "selection_metric": "cross-validated ROC-AUC on training data",
   "threshold": 0.5,
+  "selection_cv_scores": {
+    "Logistic Regression": 0.7912603525042745,
+    "Random Forest": 0.7998838687248562,
+    "Neural Network (MLP)": 0.8005201999618606
+  },
+  "evaluation_status": "Exploratory internal evaluation; earlier test results were inspected in repository history",
+  "group_definition": "Hash of final engineered and rounded model inputs",
+  "cv_diagnostic_limit": "Post-selection scores reuse tuning folds; not nested CV",
+  "source_commit_before_review": "4d06ce7",
   "best_params": {
     "Logistic Regression": {
-      "clf__C": "0.001",
-      "clf__penalty": "l2",
+      "clf__C": "0.01",
+      "clf__penalty": "l1",
       "clf__solver": "liblinear"
     },
     "Random Forest": {
       "n_estimators": "300",
-      "min_samples_leaf": "20",
+      "min_samples_leaf": "100",
       "max_features": "0.5",
-      "max_depth": "10"
+      "max_depth": "8"
     },
     "Neural Network (MLP)": {
       "clf__learning_rate_init": "0.003",
@@ -68,108 +77,254 @@
   "cv_mean_std": {
     "Logistic Regression": {
       "accuracy": [
-        0.7276688745696156,
-        0.0025530982358358567
+        0.7274634719747554,
+        0.004282056123358999
       ],
       "precision": [
-        0.7548099906720565,
-        0.0036722361370463696
+        0.7565632816862518,
+        0.0034276634597468487
       ],
       "recall": [
-        0.6659298691597915,
-        0.004544168903881952
+        0.6622336425994091,
+        0.008060416750511803
       ],
       "f1": [
-        0.7075769371880082,
-        0.002978528932092687
+        0.7062461504405737,
+        0.00570796783142112
       ],
       "roc_auc": [
-        0.7918642295090175,
-        0.0017098308119172338
+        0.7912603525042745,
+        0.0026909105447565267
       ]
     },
     "Random Forest": {
       "accuracy": [
-        0.7348862121126848,
-        0.0025819390580597407
+        0.7343894537188985,
+        0.0042354400211174585
       ],
       "precision": [
-        0.753922127979165,
-        0.004616450049733064
+        0.7581386062697182,
+        0.002912317775806416
       ],
       "recall": [
-        0.6891736045458077,
-        0.00566039637795428
+        0.6801368138572369,
+        0.010127007229943577
       ],
       "f1": [
-        0.7200689835934312,
-        0.0029066652134359526
+        0.7169864683276507,
+        0.006158432514223856
       ],
       "roc_auc": [
-        0.8009428675376812,
-        0.0017686492371805653
+        0.7998838687248562,
+        0.002488699399737802
       ]
     },
     "Neural Network (MLP)": {
       "accuracy": [
-        0.7346311283597678,
-        0.0025023301015554686
+        0.7342253997633754,
+        0.003968058490192977
       ],
       "precision": [
-        0.750144081439424,
-        0.005063473084623296
+        0.7498662539009808,
+        0.01063832556732706
       ],
       "recall": [
-        0.6954364715512186,
-        0.013365545705668181
+        0.6952037197412302,
+        0.018842473610578985
       ],
       "f1": [
-        0.7216424403293898,
-        0.0053605520769954415
+        0.7212208339406366,
+        0.00681064109287573
       ],
       "roc_auc": [
-        0.8005210891430959,
-        0.0018077285867811464
+        0.8005201999618606,
+        0.002802300900817884
       ]
     }
   },
   "test": {
     "Dummy (prior)": {
-      "Accuracy": 0.505249343832021,
+      "Accuracy": 0.5052125100240578,
       "Precision": 0.0,
       "Recall": 0.0,
       "F1": 0.0,
       "ROC-AUC": 0.5,
-      "Avg precision": 0.494750656167979,
-      "Brier": 0.24997244515252123
+      "Avg precision": 0.49478748997594224,
+      "Brier": 0.2499728300784068
     },
     "Logistic Regression": {
-      "Accuracy": 0.7263779527559056,
-      "Precision": 0.7546599496221662,
-      "Recall": 0.6622458001768347,
-      "F1": 0.7054391335060043,
-      "ROC-AUC": 0.7883969478797066,
-      "Avg precision": 0.7706812605576467,
-      "Brier": 0.18835796874576866
+      "Accuracy": 0.7263979004155428,
+      "Precision": 0.7520771020272515,
+      "Recall": 0.6668631206718727,
+      "F1": 0.7069113627489262,
+      "ROC-AUC": 0.7907701592319244,
+      "Avg precision": 0.7738442064000133,
+      "Brier": 0.18715492556432825
     },
     "Random Forest": {
-      "Accuracy": 0.7353455818022747,
-      "Precision": 0.7546804389928986,
-      "Recall": 0.6890657235484822,
-      "F1": 0.7203820674780466,
-      "ROC-AUC": 0.7979827218332965,
-      "Avg precision": 0.782604886676747,
-      "Brier": 0.18155805774437297
+      "Accuracy": 0.7320113727491434,
+      "Precision": 0.7540421362077413,
+      "Recall": 0.6802711065271844,
+      "F1": 0.7152594887683966,
+      "ROC-AUC": 0.7991292027390452,
+      "Avg precision": 0.7846315111645407,
+      "Brier": 0.1814749527667658
     },
     "Neural Network (MLP)": {
-      "Accuracy": 0.7307524059492564,
-      "Precision": 0.7328715554886313,
-      "Recall": 0.7172119068670793,
-      "F1": 0.724957175839726,
-      "ROC-AUC": 0.797093211173671,
-      "Avg precision": 0.7771756033894776,
-      "Brier": 0.1826473314761274
+      "Accuracy": 0.7330320040825253,
+      "Precision": 0.74610174830682,
+      "Recall": 0.6979519669957271,
+      "F1": 0.7212241169305724,
+      "ROC-AUC": 0.8004317098025658,
+      "Avg precision": 0.7831936418994132,
+      "Brier": 0.18078732175465506
     }
   },
-  "selected_model": "Random Forest"
+  "selected_model": "Neural Network (MLP)",
+  "group_bootstrap_95_ci": {
+    "Logistic Regression": {
+      "Accuracy": [
+        0.7184366533832852,
+        0.7336703454878347
+      ],
+      "Recall": [
+        0.6546739908782827,
+        0.677814793201393
+      ],
+      "ROC-AUC": [
+        0.7823370889139915,
+        0.7980453804224646
+      ]
+    },
+    "Random Forest": {
+      "Accuracy": [
+        0.7250153533572826,
+        0.739636080717372
+      ],
+      "Recall": [
+        0.6679379864583982,
+        0.6921499503968286
+      ],
+      "ROC-AUC": [
+        0.7915539504872654,
+        0.8061535860483854
+      ]
+    },
+    "Neural Network (MLP)": {
+      "Accuracy": [
+        0.7251008731401074,
+        0.7410589290033007
+      ],
+      "Recall": [
+        0.6870790406254567,
+        0.7088218739246113
+      ],
+      "ROC-AUC": [
+        0.7924309285188629,
+        0.8074374958418654
+      ]
+    }
+  },
+  "subgroups": [
+    {
+      "Group": "Recorded female",
+      "N": 8864,
+      "Positive cases": 4350,
+      "Accuracy": 0.7361236462093863,
+      "Precision": 0.7489477593463728,
+      "Recall": 0.6954022988505747,
+      "F1": 0.7211825008940279,
+      "ROC-AUC": 0.8044906523255873,
+      "Avg precision": 0.7831334082718088,
+      "Brier": 0.17881897244841086
+    },
+    {
+      "Group": "Recorded male",
+      "N": 4853,
+      "Positive cases": 2437,
+      "Accuracy": 0.7273851226045744,
+      "Precision": 0.7411255411255411,
+      "Recall": 0.7025030775543701,
+      "F1": 0.7212976616810617,
+      "ROC-AUC": 0.7926774587145742,
+      "Avg precision": 0.7825669989850785,
+      "Brier": 0.18438250993733563
+    },
+    {
+      "Group": "Age under 50",
+      "N": 4084,
+      "Positive cases": 1509,
+      "Accuracy": 0.7926052889324192,
+      "Precision": 0.7976618705035972,
+      "Recall": 0.5878064943671305,
+      "F1": 0.6768409004196871,
+      "ROC-AUC": 0.8252644649899953,
+      "Avg precision": 0.7587144438636528,
+      "Brier": 0.15235167203425234
+    },
+    {
+      "Group": "Age 50 and above",
+      "N": 9633,
+      "Positive cases": 5278,
+      "Accuracy": 0.7077753555486349,
+      "Precision": 0.7351537139583731,
+      "Recall": 0.7294429708222812,
+      "F1": 0.7322872087494056,
+      "ROC-AUC": 0.7703045024969883,
+      "Avg precision": 0.7863760226668488,
+      "Brier": 0.19284288009142708
+    }
+  ],
+  "uncertainty_note": "300 group-bootstrap resamples of fixed-model test predictions; conditional internal uncertainty, not retraining or external validation",
+  "descriptive_statistics": {
+    "age_years": {
+      "mean": 53.2922706793,
+      "median": 53.9,
+      "var": 45.6629464391,
+      "std": 6.7574363807,
+      "min": 29.6,
+      "max": 64.9
+    },
+    "height": {
+      "mean": 164.4154819708,
+      "median": 165.0,
+      "var": 62.5738508828,
+      "std": 7.9103635114,
+      "min": 120.0,
+      "max": 207.0
+    },
+    "weight": {
+      "mean": 74.1160914512,
+      "median": 72.0,
+      "var": 204.109033628,
+      "std": 14.2866732876,
+      "min": 30.0,
+      "max": 200.0
+    },
+    "ap_hi": {
+      "mean": 126.6772377995,
+      "median": 120.0,
+      "var": 278.23605809,
+      "std": 16.6804094101,
+      "min": 80.0,
+      "max": 240.0
+    },
+    "ap_lo": {
+      "mean": 81.3070440197,
+      "median": 80.0,
+      "var": 88.8931828619,
+      "std": 9.4283181354,
+      "min": 40.0,
+      "max": 160.0
+    },
+    "bmi": {
+      "mean": 27.4560434802,
+      "median": 26.35,
+      "var": 27.4088365679,
+      "std": 5.235344933,
+      "min": 10.73,
+      "max": 69.53
+    }
+  },
+  "reviewed_source_commit": "f85b392"
 }

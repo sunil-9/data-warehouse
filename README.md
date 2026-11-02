@@ -1,46 +1,33 @@
-# Explainable Cardiovascular Disease Classification
+# NIT6160 cardiovascular disease project
 
-NIT6160 individual project: routine clinical and lifestyle indicators, reproducible evaluation, and a path toward a research prototype.
+**Sunil Sapkota — s8206069**
 
-## Run locally
+## Submission files
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-python -m src.audit
-python -m src.train
-jupyter lab notebooks/01_exploration.ipynb
-```
+Submit only:
 
-On Windows use `.venv\Scripts\activate`. Run commands from the repository root. Dataset `cardio_train.csv` is already present and uses a semicolon separator.
+1. `NIT6160_Cardio_Project.ipynb`
+2. `NIT6160_Cardio_Project_Report.docx`
 
-## Data and scope
+The notebook is the single analysis implementation. It contains the full code and embedded outputs; it does not import repository modules. If `cardio_train.csv` is not beside the notebook, it downloads the public dataset from an immutable GitHub commit and checks SHA-256. Internet access is therefore needed to rerun without a local CSV. No CSV, figures folder, source folder, JSON, ZIP or whole project needs to be submitted. The brief separately lists a presentation; these two deliverables follow the current requested file scope.
 
-Source: https://www.kaggle.com/datasets/sulianova/cardiovascular-disease-dataset
+## Reproduce
 
-The checked-in file has 70,000 records and 13 columns: identifier, 11 predictors and binary `cardio` outcome. Age is recorded in days. Cholesterol and glucose are ordinal categories, not measured concentrations. There is **no triglyceride (TG) variable**. Confirm code meanings against the original data card before interpreting them. Country, recruitment design and label timing need stronger documentation; do not call this an Indian or Nepali patient dataset.
+Install `requirements.txt` in a virtual environment, open the notebook in Jupyter, then choose Restart and Run All. Tuning may take several minutes depending on hardware. Generated figures and JSON are outputs, not extra submission inputs. To rebuild the Word report after a completed notebook run, run `python scripts/build_report.py` from the repository root.
 
-This task classifies recorded cardiovascular disease presence. It does not predict a future heart attack or provide a validated clinical risk percentage. A personal experience of high TG motivates the topic but is not measured by this model.
+## Review changes
 
-## Workflow
+- Removed the redundant `src/` baseline, extra EDA notebook and superseded baseline reports.
+- Grouped final engineered inputs before splitting to prevent identical rounded profiles crossing train and test.
+- Selected model family using training cross-validation, not test scores.
+- Kept three tuned models and the dummy reference, with accuracy, precision, recall, F1, ROC-AUC, average precision and Brier score.
+- Added group-bootstrap uncertainty, subgroup counts/metrics, reliability diagrams and precision-recall curves.
+- Added student identification and aligned the report with current results and three journal papers.
 
-- `src/audit.py`: schema, missingness, duplicate profiles, conflicting labels, distributions and quality flags.
-- `notebooks/01_exploration.ipynb`: descriptive analysis and explanatory plots.
-- `src/train.py`: identical group-separated train/validation/test partitions for a dummy baseline plus Logistic Regression, Random Forest and HistGradientBoosting.
-- `reports/`: reproducible audit and baseline evaluation outputs.
-- `docs/project_plan.md`: research questions, assignment alignment and future validation.
+Validation: fixed best-parameter refits reproduced every saved test metric for all three models. New diagnostics executed successfully. Original search outputs were retained; this is not described as a fresh independent validation study.
 
-Exact predictor profiles are grouped before splitting, so identical profiles cannot cross partitions (even if their labels conflict). This is not a patient-level split: patient identity is not documented. The initial workflow flags suspicious measurements but retains them; it does not silently invent clinical exclusion thresholds. Imputation and scaling are fitted inside training pipelines. The untouched test set is evaluated once after validation-based model selection. Do not repeatedly choose features or tune settings using the test results.
+## Data and boundaries
 
-The baseline uses fixed parameters, not hyperparameter search. Before the final assignment, add training-only cross-validation and tuning, feature importance, a reduced-feature experiment, calibration, subgroup analysis and three recent papers. This repository is a starting point, not a completed assignment or deployable medical device.
+Kaggle source: https://www.kaggle.com/datasets/sulianova/cardiovascular-disease-dataset
 
-## Collaborating
-
-```bash
-git fetch origin
-git switch project/cardiovascular-baseline
-git pull --ff-only origin project/cardiovascular-baseline
-```
-
-Commit and push your edits before requesting a review. Keep changes on a branch, inspect `git status` before pulling, and never force-push shared history. Dataset redistribution and commercial reuse terms must be verified before distributing a product. No patient data or Kaggle credentials should be added.
+70,000 raw records; 68,583 retained under explicit study filters. The outcome is recorded disease presence, not a future heart attack. There is no triglyceride variable, and geographic provenance is insufficient for claims of local validity in Nepal or India. Reuse terms, external validation, calibration and workflow evaluation must be addressed before any clinical or commercial deployment. Lecturer approval must be confirmed by the student; the report does not invent it.

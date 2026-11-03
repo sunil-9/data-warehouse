@@ -172,7 +172,7 @@ const chartBase = () => ({
   T(s, "mmHg: the highest systolic blood pressure recorded", { x: M + 0.4, y: 3.35, w: 4.4, h: 0.6, fontSize: 16, color: C.background1 });
   T(s, [
     { text: "Negative blood pressure readings", options: { bullet: true, breakLine: true } },
-    { text: "1,234 rows with diastolic higher than systolic", options: { bullet: true, breakLine: true } },
+    { text: "1,236 rows with diastolic at or above systolic", options: { bullet: true, breakLine: true } },
     { text: "Heights of 55 cm, weights of 10 kg", options: { bullet: true } },
   ], { x: M + 0.4, y: 4.3, w: 4.4, h: 2.1, fontSize: 15, color: C.background1, paraSpaceAfter: 8 });
 

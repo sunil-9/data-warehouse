@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cardiovascular study · Notebook results</title>
+  <style>
+    :root{color-scheme:light;--ink:#18312e;--muted:#5e716d;--paper:#f3f6f2;--line:#dce5dd;--green:#16735d;--lime:#d8ed99}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:1280px;margin:auto;padding:40px 28px 64px}header{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;margin-bottom:30px}.eyebrow{font-size:12px;font-weight:750;letter-spacing:.13em;text-transform:uppercase;color:var(--green)}h1{font-size:clamp(30px,4vw,46px);line-height:1.15;letter-spacing:-.045em;margin:10px 0 14px}h2{font-size:20px;letter-spacing:-.025em;margin:0}h3{font-size:15px;margin:0 0 12px}p{margin:8px 0;color:var(--muted)}a{color:var(--green)}button,select{font:inherit;border:1px solid #bbcec4;border-radius:8px;background:white;color:var(--ink);padding:9px 13px}button{cursor:pointer}button:hover{background:#e8f0e6}button:disabled{opacity:.6;cursor:wait}:focus-visible{outline:3px solid #559d83;outline-offset:3px}.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.source{font-size:12px;word-break:break-word}.status{font-size:13px}.notice{border-left:3px solid #b88a37;background:#fff9e9;padding:13px 18px;margin:20px 0;color:#6b542b;border-radius:0 8px 8px 0}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:24px 0}.card,.panel{background:white;border:1px solid var(--line);border-radius:14px;padding:22px}.card .value{font-size:31px;font-weight:720;letter-spacing:-.04em;line-height:1.3;margin:8px 0}.card .label{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}.card .sub{font-size:12px;color:var(--muted)}.card.featured{background:var(--ink);color:white}.card.featured .label,.card.featured .sub{color:#b9d1c4}.card.featured .value{color:var(--lime)}.grid{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;margin:20px 0}.panel{min-width:0}.panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:18px}.caption{font-size:12px;color:var(--muted)}.chart-row{display:grid;grid-template-columns:160px 1fr 64px;gap:12px;align-items:center;margin:22px 0}.model-name{font-size:13px;line-height:1.45}.badge{display:inline-block;font-size:10px;text-transform:uppercase;letter-spacing:.05em;background:#e5f2da;color:#42662d;padding:2px 6px;border-radius:4px;margin-top:4px}.chart-row svg{width:100%;height:28px;display:block}.chart-score{text-align:right;font-variant-numeric:tabular-nums;font-size:14px;font-weight:650}.axis{display:flex;justify-content:space-between;margin-left:172px;margin-right:76px;color:var(--muted);font-size:11px}.split-track{display:flex;height:18px;border-radius:5px;overflow:hidden;margin:14px 0;background:#e8eee7}.split-track span:first-child{background:var(--green)}.split-track span:last-child{background:#bdcf83}.legend{display:flex;justify-content:space-between;gap:12px;font-size:13px}.clean-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #edf1ed;font-size:13px}.clean-row:last-child{border:0;font-weight:700}.clean-row span:first-child{text-transform:capitalize}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:13px;white-space:nowrap}th,td{padding:12px 13px;border-bottom:1px solid #e8ede7;text-align:right;font-variant-numeric:tabular-nums}th{font-weight:600;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);background:#f8faf6}th:first-child,td:first-child{text-align:left}tr.selected{background:#eff6e8}td strong{font-weight:700}details{border-top:1px solid var(--line);padding-top:14px;margin-top:16px}summary{cursor:pointer;font-weight:600}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f3f6f2;padding:16px;border-radius:8px;font-size:12px;max-height:450px;overflow:auto}.meta-list{display:grid;grid-template-columns:145px 1fr;gap:10px 16px;font-size:13px;margin:16px 0}.meta-list dt{color:var(--muted)}.meta-list dd{margin:0;overflow-wrap:anywhere}.hidden{display:none!important}.error{background:#fff3ee;border:1px solid #ecc3ad;padding:20px;border-radius:12px}.footer{font-size:12px;margin-top:24px;color:var(--muted)}.metric-control{display:flex;gap:8px;align-items:center;font-size:13px}
+    @media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}header{flex-direction:column}}@media(max-width:540px){main{padding:24px 14px}.cards{gap:10px}.card,.panel{padding:16px}.card .value{font-size:25px}.chart-row{grid-template-columns:105px 1fr 50px;gap:8px}.model-name{font-size:11px}.axis{margin-left:113px;margin-right:58px}.meta-list{grid-template-columns:1fr;gap:4px}.meta-list dd{margin-bottom:10px}}
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div><div class="eyebrow">Research / model evaluation</div><h1>Cardiovascular study</h1><p>A visual overview of the notebook’s data and model results.</p></div>
+    <div><div class="toolbar"><a id="source" href="notebook_results.json">View source JSON ↗</a><button id="choose-file" type="button">Load JSON file</button><input id="json-file" class="hidden" type="file" accept=".json,application/json" aria-label="Choose notebook results JSON"><button id="reload" type="button">Reload data</button></div><p id="source-label" class="source">Data source: notebook_results.json</p><div id="status" class="status" role="status" aria-live="polite">Loading results…</div></div>
+  </header>
+  <div id="error" class="error hidden" role="alert"></div>
+  <div id="dashboard" class="hidden">
+    <div id="notice" class="notice"></div>
+    <section id="cards" class="cards" aria-label="Study overview"></section>
+    <div class="grid">
+      <section class="panel">
+        <div class="panel-head"><div><h2>Model comparison</h2><p class="caption">Test scores · whiskers show available 95% confidence intervals</p></div><label class="metric-control">Metric <select id="metric"></select></label></div>
+        <div id="chart" role="img"></div><div class="axis"><span>0</span><span>0.25</span><span>0.50</span><span>0.75</span><span>1.00</span></div>
+        <p id="metric-note" class="caption"></p>
+      </section>
+      <section class="panel"><h2>Data preparation</h2><p class="caption">Row counts from the notebook’s exclusion audit</p><div id="cleaning"></div><h3 style="margin-top:22px">Train / test split</h3><div id="split"></div></section>
+    </div>
+    <section class="panel"><div class="panel-head"><div><h2>Test performance</h2><p class="caption">All saved metrics · selected model highlighted</p></div></div><div id="test-table" class="table-wrap"></div></section>
+    <div class="grid">
+      <section class="panel"><h2>Model selection</h2><p id="selection-metric" class="caption"></p><div id="cv-table" class="table-wrap"></div><p id="selection-rule"></p><div id="selection-detail" class="caption"></div><details><summary>Cross-validation means and standard deviations</summary><div id="cv-detail" class="table-wrap"></div></details><details><summary>Tuned parameters</summary><pre id="parameters"></pre></details></section>
+      <section class="panel"><h2>Study context</h2><dl id="context" class="meta-list"></dl><details><summary>Software versions</summary><dl id="versions" class="meta-list"></dl></details><details><summary>Plausibility limits</summary><div id="limits" class="table-wrap"></div></details></section>
+    </div>
+    <section class="panel"><h2>Subgroup performance</h2><p class="caption">Saved subgroup metrics · age and sex groups overlap and should not be summed together</p><div id="subgroups" class="table-wrap"></div></section>
+    <section class="panel" style="margin-top:20px"><h2>Descriptive statistics</h2><p class="caption">Summary values only; individual records and distributions are not included in this JSON.</p><div id="statistics" class="table-wrap"></div></section>
+    <details><summary>Inspect complete source data</summary><pre id="raw"></pre></details>
+    <p class="footer">When served over HTTP, this page reads the adjacent JSON on each load. When opened directly, use Load JSON file to select the source. Select it again after regenerating the notebook results.</p>
+  </div>
+</main>
+<script>
+'use strict';
+const DATA_URL = new URL('notebook_results.json', window.location.href);
+const $ = id => document.getElementById(id);
+const escapeHTML = value => String(value ?? '—').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const number = value => typeof value === 'number' && Number.isFinite(value) ? value.toLocaleString('en', {maximumFractionDigits:2}) : '—';
+const score = value => typeof value === 'number' && Number.isFinite(value) ? value.toFixed(4) : '—';
+const pct = value => typeof value === 'number' && Number.isFinite(value) ? (value*100).toFixed(2)+'%' : '—';
+let results;
+function table(headers, rows, selected = -1) {
+  return '<table><thead><tr>'+headers.map(h=>'<th scope="col">'+escapeHTML(h)+'</th>').join('')+'</tr></thead><tbody>'+rows.map((row,i)=>'<tr'+(i===selected?' class="selected"':'')+'>'+row.map((cell,j)=>j===0?'<th scope="row">'+escapeHTML(cell)+'</th>':'<td>'+escapeHTML(cell)+'</td>').join('')+'</tr>').join('')+'</tbody></table>';
+}
+function definitionList(entries) {return entries.map(([key,value])=>'<dt>'+escapeHTML(key)+'</dt><dd>'+escapeHTML(value)+'</dd>').join('');}
+function drawChart() {
+  const metric=$('metric').value;
+  $('chart').setAttribute('aria-label', 'Test '+metric+' by model. '+(metric==='Brier'?'Lower is better.':'Higher is better.'));
+  $('chart').innerHTML=Object.entries(results.test).map(([name,metrics])=>{
+    const value=metrics[metric], ci=results.group_bootstrap_95_ci?.[name]?.[metric];
+    const selected=name===results.selected_model;
+    const width=Math.max(0,Math.min(1,value))*400;
+    const interval=ci?'<path d="M'+ci[0]*400+' 14 H'+ci[1]*400+' M'+ci[0]*400+' 7 V21 M'+ci[1]*400+' 7 V21" stroke="#172f2b" stroke-width="2" fill="none"/>':'';
+    const title=name+': '+score(value)+(ci?', 95% CI '+score(ci[0])+'–'+score(ci[1]):'');
+    return '<div class="chart-row"><div class="model-name">'+escapeHTML(name)+(selected?'<br><span class="badge">Selected model</span>':'')+'</div><svg viewBox="0 0 400 28" preserveAspectRatio="none" role="img" aria-label="'+escapeHTML(title)+'"><title>'+escapeHTML(title)+'</title><rect width="400" height="28" rx="4" fill="#f0f4ef"/><rect width="'+width+'" height="28" rx="4" fill="'+(selected?'#16735d':name==='Dummy (prior)'?'#c9d1c9':'#9bb7a4')+'"/>'+interval+'</svg><span class="chart-score">'+score(value)+'</span></div>';
+  }).join('');
+  $('metric-note').textContent=(metric==='Brier'?'Lower Brier scores are better.':'Higher scores are better.')+' All bars use a 0–1 scale. '+(results.uncertainty_note || '');
+}
+function render(d) {
+  if(!d.test || !Object.keys(d.test).length || !d.exclusions || !d.split || !d.test[d.selected_model]) throw new Error('The JSON does not contain the expected notebook results structure.');
+  results=d;
+  const selected=d.test[d.selected_model], exclusions=d.exclusions;
+  $('notice').textContent=d.evaluation_status || 'Notebook evaluation results';
+  const cards=[['Retained records',number(exclusions['final rows']),number(exclusions['percent retained'])+'% of original records'],['Test records',number(d.split.test),'Training records: '+number(d.split.train)],['Selected model',d.selected_model,'Selected using training cross-validation'],['Selected test ROC-AUC',score(selected['ROC-AUC']),'Accuracy '+pct(selected.Accuracy)]];
+  $('cards').innerHTML=cards.map(([label,value,sub],i)=>'<article class="card'+(i===3?' featured':'')+'"><div class="label">'+escapeHTML(label)+'</div><div class="value">'+escapeHTML(value)+'</div><div class="sub">'+escapeHTML(sub)+'</div></article>').join('');
+  const oldMetric=$('metric').value, metrics=[...new Set(Object.values(d.test).flatMap(Object.keys))];
+  $('metric').innerHTML=metrics.map(m=>'<option>'+escapeHTML(m)+'</option>').join('');
+  $('metric').value=metrics.includes(oldMetric)?oldMetric:metrics.includes('ROC-AUC')?'ROC-AUC':metrics[0];
+  drawChart();
+  $('cleaning').innerHTML=Object.entries(exclusions).filter(([key])=>key!=='percent retained').map(([key,value])=>'<div class="clean-row"><span>'+escapeHTML(key)+'</span><strong>'+number(value)+'</strong></div>').join('');
+  const total=d.split.train+d.split.test;
+  $('split').innerHTML='<div class="split-track" role="img" aria-label="Training '+number(d.split.train)+', test '+number(d.split.test)+'"><span style="width:'+(100*d.split.train/total)+'%"></span><span style="width:'+(100*d.split.test/total)+'%"></span></div><div class="legend"><span>Train · '+pct(d.split.train/total)+'</span><span>Test · '+pct(d.split.test/total)+'</span></div><p class="caption">'+escapeHTML(d.split.method)+'</p>';
+  const models=Object.keys(d.test);
+  $('test-table').innerHTML=table(['Model',...metrics],models.map(name=>[name,...metrics.map(m=>score(d.test[name][m]))]),models.indexOf(d.selected_model));
+  $('selection-metric').textContent=d.selection_metric;
+  const cvModels=Object.keys(d.selection_cv_scores || {});
+  $('cv-table').innerHTML=table(['Model','CV ROC-AUC'],cvModels.map(name=>[name,score(d.selection_cv_scores[name])]),cvModels.indexOf(d.selected_model));
+  $('selection-rule').textContent=d.selection_rule;
+  $('selection-detail').textContent='Highest CV model: '+d.highest_cv_model+' · One SE: '+score(d.selection_one_se)+' · Eligibility cutoff: '+score(d.selection_threshold);
+  const cvRows=Object.entries(d.cv_mean_std || {}).flatMap(([name,values])=>Object.entries(values).map(([metric,stats])=>[name,metric,score(stats[0]),score(stats[1])]));
+  $('cv-detail').innerHTML=table(['Model','Metric','Mean','SD'],cvRows);
+  $('parameters').textContent=JSON.stringify(d.best_params,null,2);
+  $('context').innerHTML=definitionList([['Prediction threshold',number(d.threshold)],['Random seed',d.seed],['Profile grouping',d.group_definition],['CV limitation',d.cv_diagnostic_limit],['Uncertainty',d.uncertainty_note],['MLP epochs',d.mlp_epochs_used],['Source commit',d.source_commit_before_review]]);
+  $('versions').innerHTML=definitionList(Object.entries(d.versions || {}));
+  $('limits').innerHTML=table(['Variable','Minimum','Maximum'],Object.entries(d.plausibility_limits || {}).map(([name,limits])=>[name,...limits.map(number)]));
+  const subgroups=d.subgroups || [], subgroupMetrics=[...new Set(subgroups.flatMap(row=>Object.keys(row)))].filter(key=>!['Group','N','Positive cases'].includes(key));
+  $('subgroups').innerHTML=table(['Group','N','Positive cases',...subgroupMetrics],subgroups.map(row=>[row.Group,number(row.N),number(row['Positive cases']),...subgroupMetrics.map(m=>score(row[m]))]));
+  const stats=d.descriptive_statistics || {}, statColumns=[...new Set(Object.values(stats).flatMap(Object.keys))];
+  const labels={age_years:'Age (years)',height:'Height (cm)',weight:'Weight (kg)',ap_hi:'Systolic BP (mmHg)',ap_lo:'Diastolic BP (mmHg)',bmi:'BMI (kg/m²)'};
+  $('statistics').innerHTML=table(['Variable',...statColumns],Object.entries(stats).map(([name,values])=>[labels[name] || name,...statColumns.map(key=>number(values[key]))]));
+  $('raw').textContent=JSON.stringify(d,null,2);
+  $('dashboard').classList.remove('hidden');
+}
+async function load() {
+  if(location.protocol==='file:') {
+    $('status').textContent=results?'Select the JSON file again to reload it':'Select notebook_results.json to load the dashboard';
+    $('error').classList.remove('hidden');
+    $('error').innerHTML='<strong>Load your notebook results</strong><p>Click <b>Load JSON file</b> above and select <b>notebook_results.json</b> from this folder. Your browser requires you to choose the file when this HTML is opened directly. The data stays in your browser.</p>';
+    return;
+  }
+  $('reload').disabled=true;
+  $('status').textContent='Loading results…';
+  $('error').classList.add('hidden');
+  try {
+    const response=await fetch(DATA_URL,{cache:'no-store'});
+    if(!response.ok) throw new Error('Could not load notebook_results.json (HTTP '+response.status+').');
+    render(await response.json());
+    $('source-label').textContent='Data source: notebook_results.json';
+    $('status').textContent='Loaded at '+new Date().toLocaleTimeString();
+  } catch(error) {
+    $('status').textContent=results?'Reload failed · showing previously loaded data':'Unable to load results';
+    $('error').innerHTML='<strong>Could not load the data</strong><p>'+escapeHTML(error.message)+'</p><p>From the repository root, run:</p><pre>python3 -m http.server 8000 --directory project/reports</pre><p>Then open <a href="http://localhost:8000/notebook_results.html">http://localhost:8000/notebook_results.html</a>. Keep the HTML and JSON in the same folder.</p>';
+  } finally {$('reload').disabled=false;}
+}
+$('choose-file').addEventListener('click',()=>{$('json-file').value='';$('json-file').click();});
+$('json-file').addEventListener('change',async event=>{
+  const file=event.target.files[0];
+  if(!file) return;
+  try {
+    render(JSON.parse(await file.text()));
+    $('error').classList.add('hidden');
+    $('source-label').textContent='Data source: '+file.name+' (selected local file)';
+    $('status').textContent='Loaded at '+new Date().toLocaleTimeString();
+  } catch(error) {
+    $('error').classList.remove('hidden');
+    $('error').textContent='Could not load '+file.name+': '+error.message;
+    $('status').textContent=results?'Load failed · showing previously loaded data':'Unable to load results';
+  }
+});
+$('reload').addEventListener('click',()=>{
+  if(location.protocol==='file:') {$('json-file').value='';$('json-file').click();}
+  else load();
+});
+$('metric').addEventListener('change',drawChart);
+load();
+</script>
+</body>
+</html>

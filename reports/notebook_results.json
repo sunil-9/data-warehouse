@@ -1,12 +1,12 @@
 {
   "seed": 42,
   "versions": {
-    "python": "3.12.14",
-    "pandas": "2.2.3",
-    "numpy": "2.3.5",
-    "scikit-learn": "1.8.0",
-    "scipy": "1.17.0",
-    "matplotlib": "3.10.8",
+    "python": "3.14.7",
+    "pandas": "3.0.6",
+    "numpy": "2.5.3",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1",
+    "matplotlib": "3.11.2",
     "seaborn": "0.13.2"
   },
   "plausibility_limits": {
@@ -34,24 +34,29 @@
   "exclusions": {
     "original rows": 70000,
     "exact duplicate records removed": 24,
-    "implausible blood pressure removed": 1334,
+    "implausible blood pressure removed": 1336,
     "implausible height/weight/BMI removed": 59,
     "invalid category codes removed": 0,
-    "final rows": 68583,
-    "percent retained": 97.98
+    "final rows": 68581,
+    "percent retained": 97.97
   },
   "split": {
     "method": "StratifiedGroupKFold (5 folds, first fold = test) grouped by predictor profile",
-    "train": 54866,
-    "test": 13717
+    "train": 54865,
+    "test": 13716
   },
   "selection_metric": "cross-validated ROC-AUC on training data",
   "threshold": 0.5,
   "selection_cv_scores": {
-    "Logistic Regression": 0.7912603525042745,
-    "Random Forest": 0.7998838687248562,
-    "Neural Network (MLP)": 0.8005201999618606
+    "Logistic Regression": 0.7912350419984531,
+    "Random Forest": 0.7989972401211446,
+    "Neural Network (MLP)": 0.7985195640777238
   },
+  "selection_rule": "Simplest model (LR < RF < MLP) within one standard error of the best training-CV ROC-AUC; adopted as a documented revision after plain best-score selection picked the MLP by 0.00004 in an earlier run",
+  "selection_one_se": 0.0021420741726941393,
+  "selection_threshold": 0.7968551659484504,
+  "highest_cv_model": "Random Forest",
+  "mlp_epochs_used": 30,
   "evaluation_status": "Exploratory internal evaluation; earlier test results were inspected in repository history",
   "group_definition": "Hash of final engineered and rounded model inputs",
   "cv_diagnostic_limit": "Post-selection scores reuse tuning folds; not nested CV",
@@ -59,8 +64,7 @@
   "best_params": {
     "Logistic Regression": {
       "clf__C": "0.01",
-      "clf__penalty": "l1",
-      "clf__solver": "liblinear"
+      "clf__l1_ratio": "1.0"
     },
     "Random Forest": {
       "n_estimators": "300",
@@ -69,262 +73,261 @@
       "max_depth": "8"
     },
     "Neural Network (MLP)": {
-      "clf__learning_rate_init": "0.003",
-      "clf__hidden_layer_sizes": "(64, 32)",
+      "clf__learning_rate_init": "0.001",
+      "clf__hidden_layer_sizes": "(128, 64)",
       "clf__alpha": "0.1"
     }
   },
   "cv_mean_std": {
     "Logistic Regression": {
       "accuracy": [
-        0.7274634719747554,
-        0.004282056123358999
+        0.7271485066375621,
+        0.003683447445949551
       ],
       "precision": [
-        0.7565632816862518,
-        0.0034276634597468487
+        0.7561816896411203,
+        0.004772299796905895
       ],
       "recall": [
-        0.6622336425994091,
-        0.008060416750511803
+        0.662012872008893,
+        0.0047325548460359235
       ],
       "f1": [
-        0.7062461504405737,
-        0.00570796783142112
+        0.7059609939896401,
+        0.003995269210789981
       ],
       "roc_auc": [
-        0.7912603525042745,
-        0.0026909105447565267
+        0.7912350419984531,
+        0.004206897805909026
       ]
     },
     "Random Forest": {
       "accuracy": [
-        0.7343894537188985,
-        0.0042354400211174585
+        0.7338558577252299,
+        0.003812781331666707
       ],
       "precision": [
-        0.7581386062697182,
-        0.002912317775806416
+        0.7555618807955353,
+        0.0025878519038429744
       ],
       "recall": [
-        0.6801368138572369,
-        0.010127007229943577
+        0.6830843159663318,
+        0.009343319060282658
       ],
       "f1": [
-        0.7169864683276507,
-        0.006158432514223856
+        0.7174661396103559,
+        0.0055493818996708525
       ],
       "roc_auc": [
-        0.7998838687248562,
-        0.002488699399737802
+        0.7989972401211446,
+        0.00478982346299072
       ]
     },
     "Neural Network (MLP)": {
       "accuracy": [
-        0.7342253997633754,
-        0.003968058490192977
+        0.7338195341781502,
+        0.004788437906664035
       ],
       "precision": [
-        0.7498662539009808,
-        0.01063832556732706
+        0.7495087452790805,
+        0.007403862555795157
       ],
       "recall": [
-        0.6952037197412302,
-        0.018842473610578985
+        0.6941351455775833,
+        0.009680691406155278
       ],
       "f1": [
-        0.7212208339406366,
-        0.00681064109287573
+        0.7206925685632789,
+        0.005376760105196984
       ],
       "roc_auc": [
-        0.8005201999618606,
-        0.002802300900817884
+        0.7985195640777238,
+        0.005779075406667118
       ]
     }
   },
   "test": {
     "Dummy (prior)": {
-      "Accuracy": 0.5052125100240578,
+      "Accuracy": 0.505249343832021,
       "Precision": 0.0,
       "Recall": 0.0,
       "F1": 0.0,
       "ROC-AUC": 0.5,
-      "Avg precision": 0.49478748997594224,
-      "Brier": 0.2499728300784068
+      "Avg precision": 0.494750656167979,
+      "Brier": 0.24997244514204042
     },
     "Logistic Regression": {
-      "Accuracy": 0.7263979004155428,
-      "Precision": 0.7520771020272515,
-      "Recall": 0.6668631206718727,
-      "F1": 0.7069113627489262,
-      "ROC-AUC": 0.7907701592319244,
-      "Avg precision": 0.7738442064000133,
-      "Brier": 0.18715492556432825
+      "Accuracy": 0.7273986585010207,
+      "Precision": 0.7590545825539874,
+      "Recall": 0.6578249336870027,
+      "F1": 0.7048235572748086,
+      "ROC-AUC": 0.7915018038581256,
+      "Avg precision": 0.7709184597904923,
+      "Brier": 0.18701994117187806
     },
     "Random Forest": {
-      "Accuracy": 0.7320113727491434,
-      "Precision": 0.7540421362077413,
-      "Recall": 0.6802711065271844,
-      "F1": 0.7152594887683966,
-      "ROC-AUC": 0.7991292027390452,
-      "Avg precision": 0.7846315111645407,
-      "Brier": 0.1814749527667658
+      "Accuracy": 0.7336687080781569,
+      "Precision": 0.7547568710359408,
+      "Recall": 0.6839080459770115,
+      "F1": 0.7175879396984924,
+      "ROC-AUC": 0.8038382541256105,
+      "Avg precision": 0.7873039631007015,
+      "Brier": 0.1793627862126736
     },
     "Neural Network (MLP)": {
-      "Accuracy": 0.7330320040825253,
-      "Precision": 0.74610174830682,
-      "Recall": 0.6979519669957271,
-      "F1": 0.7212241169305724,
-      "ROC-AUC": 0.8004317098025658,
-      "Avg precision": 0.7831936418994132,
-      "Brier": 0.18078732175465506
+      "Accuracy": 0.7335958005249343,
+      "Precision": 0.7523364485981309,
+      "Recall": 0.688034188034188,
+      "F1": 0.71875,
+      "ROC-AUC": 0.8036924335774911,
+      "Avg precision": 0.7844077444918034,
+      "Brier": 0.17953891049593754
     }
   },
-  "selected_model": "Neural Network (MLP)",
+  "selected_model": "Random Forest",
+  "descriptive_statistics": {
+    "age_years": {
+      "mean": 53.292268995786,
+      "median": 53.9,
+      "var": 45.66127356403566,
+      "std": 6.757312599253912,
+      "min": 29.6,
+      "max": 64.9
+    },
+    "height": {
+      "mean": 164.41531911170733,
+      "median": 165.0,
+      "var": 62.572899762922724,
+      "std": 7.910303392596439,
+      "min": 120.0,
+      "max": 207.0
+    },
+    "weight": {
+      "mean": 74.11497207681428,
+      "median": 72.0,
+      "var": 204.07037779923488,
+      "std": 14.285320360399163,
+      "min": 30.0,
+      "max": 200.0
+    },
+    "ap_hi": {
+      "mean": 126.67801577696447,
+      "median": 120.0,
+      "var": 278.22341709517246,
+      "std": 16.68003048843654,
+      "min": 80.0,
+      "max": 240.0
+    },
+    "ap_lo": {
+      "mean": 81.3064988845307,
+      "median": 80.0,
+      "var": 88.8855846230266,
+      "std": 9.427915179032246,
+      "min": 40.0,
+      "max": 160.0
+    },
+    "bmi": {
+      "mean": 27.455694288505562,
+      "median": 26.35,
+      "var": 27.40430069504889,
+      "std": 5.234911717980437,
+      "min": 10.73,
+      "max": 69.53
+    }
+  },
   "group_bootstrap_95_ci": {
     "Logistic Regression": {
       "Accuracy": [
-        0.7184366533832852,
-        0.7336703454878347
+        0.7198005394998331,
+        0.7352475516096177
       ],
       "Recall": [
-        0.6546739908782827,
-        0.677814793201393
+        0.6459968127847304,
+        0.6684992583392944
       ],
       "ROC-AUC": [
-        0.7823370889139915,
-        0.7980453804224646
+        0.7839075917367615,
+        0.7979862027177701
       ]
     },
     "Random Forest": {
       "Accuracy": [
-        0.7250153533572826,
-        0.739636080717372
+        0.7253886797377262,
+        0.7407674991776712
       ],
       "Recall": [
-        0.6679379864583982,
-        0.6921499503968286
+        0.6714298099597725,
+        0.6952623375934337
       ],
       "ROC-AUC": [
-        0.7915539504872654,
-        0.8061535860483854
+        0.7954892438357833,
+        0.8105094125718167
       ]
     },
     "Neural Network (MLP)": {
       "Accuracy": [
-        0.7251008731401074,
-        0.7410589290033007
+        0.7261511721447745,
+        0.741077971031331
       ],
       "Recall": [
-        0.6870790406254567,
-        0.7088218739246113
+        0.6767830421062665,
+        0.6991334982287439
       ],
       "ROC-AUC": [
-        0.7924309285188629,
-        0.8074374958418654
+        0.7961085538538989,
+        0.80981123627083
       ]
     }
   },
   "subgroups": [
     {
       "Group": "Recorded female",
-      "N": 8864,
-      "Positive cases": 4350,
-      "Accuracy": 0.7361236462093863,
-      "Precision": 0.7489477593463728,
-      "Recall": 0.6954022988505747,
-      "F1": 0.7211825008940279,
-      "ROC-AUC": 0.8044906523255873,
-      "Avg precision": 0.7831334082718088,
-      "Brier": 0.17881897244841086
+      "N": 8972,
+      "Positive cases": 4441,
+      "Accuracy": 0.7322781988408381,
+      "Precision": 0.7524139638524387,
+      "Recall": 0.6843053366358928,
+      "F1": 0.716745283018868,
+      "ROC-AUC": 0.8039225489138324,
+      "Avg precision": 0.7865771152133305,
+      "Brier": 0.1796110566641367
     },
     {
       "Group": "Recorded male",
-      "N": 4853,
-      "Positive cases": 2437,
-      "Accuracy": 0.7273851226045744,
-      "Precision": 0.7411255411255411,
-      "Recall": 0.7025030775543701,
-      "F1": 0.7212976616810617,
-      "ROC-AUC": 0.7926774587145742,
-      "Avg precision": 0.7825669989850785,
-      "Brier": 0.18438250993733563
+      "N": 4744,
+      "Positive cases": 2345,
+      "Accuracy": 0.7362984822934233,
+      "Precision": 0.7592417061611374,
+      "Recall": 0.6831556503198294,
+      "F1": 0.7191919191919192,
+      "ROC-AUC": 0.8036263332891904,
+      "Avg precision": 0.7892709749992338,
+      "Brier": 0.17889324943136528
     },
     {
       "Group": "Age under 50",
-      "N": 4084,
-      "Positive cases": 1509,
-      "Accuracy": 0.7926052889324192,
-      "Precision": 0.7976618705035972,
-      "Recall": 0.5878064943671305,
-      "F1": 0.6768409004196871,
-      "ROC-AUC": 0.8252644649899953,
-      "Avg precision": 0.7587144438636528,
-      "Brier": 0.15235167203425234
+      "N": 4150,
+      "Positive cases": 1495,
+      "Accuracy": 0.7992771084337349,
+      "Precision": 0.7955357142857142,
+      "Recall": 0.5959866220735786,
+      "F1": 0.681453154875717,
+      "ROC-AUC": 0.8326306772732712,
+      "Avg precision": 0.7579004251685177,
+      "Brier": 0.14831991001342484
     },
     {
       "Group": "Age 50 and above",
-      "N": 9633,
-      "Positive cases": 5278,
-      "Accuracy": 0.7077753555486349,
-      "Precision": 0.7351537139583731,
-      "Recall": 0.7294429708222812,
-      "F1": 0.7322872087494056,
-      "ROC-AUC": 0.7703045024969883,
-      "Avg precision": 0.7863760226668488,
-      "Brier": 0.19284288009142708
+      "N": 9566,
+      "Positive cases": 5291,
+      "Accuracy": 0.7052059376960067,
+      "Precision": 0.7456750845098429,
+      "Recall": 0.7087507087507088,
+      "F1": 0.7267441860465116,
+      "ROC-AUC": 0.7695479358637254,
+      "Avg precision": 0.7909646917545596,
+      "Brier": 0.19283005949585177
     }
   ],
-  "uncertainty_note": "300 group-bootstrap resamples of fixed-model test predictions; conditional internal uncertainty, not retraining or external validation",
-  "descriptive_statistics": {
-    "age_years": {
-      "mean": 53.2922706793,
-      "median": 53.9,
-      "var": 45.6629464391,
-      "std": 6.7574363807,
-      "min": 29.6,
-      "max": 64.9
-    },
-    "height": {
-      "mean": 164.4154819708,
-      "median": 165.0,
-      "var": 62.5738508828,
-      "std": 7.9103635114,
-      "min": 120.0,
-      "max": 207.0
-    },
-    "weight": {
-      "mean": 74.1160914512,
-      "median": 72.0,
-      "var": 204.109033628,
-      "std": 14.2866732876,
-      "min": 30.0,
-      "max": 200.0
-    },
-    "ap_hi": {
-      "mean": 126.6772377995,
-      "median": 120.0,
-      "var": 278.23605809,
-      "std": 16.6804094101,
-      "min": 80.0,
-      "max": 240.0
-    },
-    "ap_lo": {
-      "mean": 81.3070440197,
-      "median": 80.0,
-      "var": 88.8931828619,
-      "std": 9.4283181354,
-      "min": 40.0,
-      "max": 160.0
-    },
-    "bmi": {
-      "mean": 27.4560434802,
-      "median": 26.35,
-      "var": 27.4088365679,
-      "std": 5.235344933,
-      "min": 10.73,
-      "max": 69.53
-    }
-  },
-  "reviewed_source_commit": "f85b392"
+  "uncertainty_note": "300 group-bootstrap resamples of fixed-model test predictions; conditional internal uncertainty, not retraining or external validation"
 }

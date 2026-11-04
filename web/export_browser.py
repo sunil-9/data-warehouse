@@ -23,6 +23,7 @@ def export(output):
                       'positive': positive.tolist()})
     (assets / 'forest.json').write_text(json.dumps({'metadata': metadata, 'trees': trees}, separators=(',', ':')))
     shutil.copy2(HERE / 'static/style.css', assets / 'style.css')
+    shutil.copy2(HERE / 'static/examples.json', assets / 'examples.json')
     html = (HERE / 'static/index.html').read_text().replace('<script src="/static/app.js">', '<script type="module" src="/static/app.js">')
     html = html.replace('Inputs are processed for this request and are not saved by this application.',
                         'Predictions run in your browser. Profile inputs are not sent to a prediction server or saved by this application.')

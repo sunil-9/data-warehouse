@@ -5,6 +5,25 @@ for(const [name,label] of [['smoke','Currently smokes'],['alco','Alcohol intake'
  for(const [value,text] of [['','Select'],['0','No'],['1','Yes']])select.add(new Option(text,value));
  wrapper.append(select);document.querySelector('#lifestyle').append(wrapper);
 }
-document.querySelector('#example').onclick=()=>{const data={age_years:55,gender:1,height:165,weight:75,ap_hi:130,ap_lo:85,cholesterol:1,gluc:1,smoke:0,alco:0,active:1};for(const [key,value] of Object.entries(data))form.elements[key].value=value;document.querySelector('#output').hidden=true;document.querySelector('#result-title').textContent='Example loaded';document.querySelector('#result-text').textContent='Select Explore classification to run this fictional profile.';};
+const exampleButton=document.querySelector('#example');
+let examplesPromise;
+let previousExample=-1;
+exampleButton.onclick=async()=>{
+ exampleButton.disabled=true;
+ try {
+  if(!examplesPromise) examplesPromise=fetch('/static/examples.json').then(r=>{if(!r.ok)throw Error('Could not load example profiles.');return r.json();});
+  const examples=await examplesPromise;
+  if(!Array.isArray(examples)||!examples.length)throw Error('No example profiles are available.');
+  const choices=examples.map((_,i)=>i).filter(i=>examples.length===1||i!==previousExample);
+  const index=choices[Math.floor(Math.random()*choices.length)];
+  const data=examples[index];previousExample=index;
+  for(const [key,value] of Object.entries(data))form.elements[key].value=value;
+  document.querySelector('#error').textContent='';
+  document.querySelector('#output').hidden=true;
+  document.querySelector('#result-title').textContent='Example '+(index+1)+' loaded';
+  document.querySelector('#result-text').textContent='Fictional presentation profile. Select Explore classification to run it, or click again for another example.';
+ } catch(e) { examplesPromise=undefined;document.querySelector('#error').textContent=e.message; }
+ finally { exampleButton.disabled=false; }
+};
 fetch('/api/model').then(async r=>{if(!r.ok)throw Error('Model not prepared. Run python web/prepare.py.');return r.json();}).then(m=>{document.querySelector('#model').textContent=`${m.model} · ${m.training_rows.toLocaleString()} training records. Rebuilt internal test accuracy ${(m.test_metrics_rebuilt.accuracy*100).toFixed(1)}%; ROC-AUC ${m.test_metrics_rebuilt.roc_auc.toFixed(3)}.`;form.elements.age_years.min=m.age_range[0];form.elements.age_years.max=m.age_range[1];}).catch(e=>document.querySelector('#model').textContent=e.message);
 form.onsubmit=async event=>{event.preventDefault();const button=document.querySelector('#submit');button.disabled=true;document.querySelector('#error').textContent='';document.querySelector('#output').hidden=true;document.querySelector('#result-title').textContent='Calculating…';try{const data=Object.fromEntries([...new FormData(form)].map(([k,v])=>[k,Number(v)]));const response=await fetch('/api/predict',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});const result=await response.json();if(!response.ok){throw Error(Array.isArray(result.detail)?result.detail.map(d=>d.msg).join(' '):result.detail||'Prediction failed.');}document.querySelector('#result-title').textContent=result.classification?'Class 1 · CVD present':'Class 0 · CVD absent';document.querySelector('#result-text').textContent='Model classification only; this is not confirmation of your health status.';document.querySelector('#score').textContent=result.model_score.toFixed(3);document.querySelector('#meter').value=result.model_score;document.querySelector('#bmi').textContent=result.bmi.toFixed(2);document.querySelector('#pulse').textContent=`${result.pulse_pressure} mmHg`;document.querySelector('#output').hidden=false;}catch(e){document.querySelector('#error').textContent=e.message;document.querySelector('#result-title').textContent='No prediction provided';document.querySelector('#result-text').textContent='Check the input message and try again.';}finally{button.disabled=false;}};

@@ -26,3 +26,7 @@ uv run --with-requirements web/requirements.txt python web/export_browser.py --o
 ```
 
 Serve that output over HTTP(S); opening index.html as a file will not support module/model loading. Browser traversal converts inputs to float32 and uses the same feature order, preprocessing, tree thresholds and leaf probabilities as sklearn. The demo is private by default when hosted through ChatGPT Sites.
+
+## Presentation examples
+
+Each click on **Load presentation example** chooses a fictional profile from `web/static/examples.json` at random, avoiding the immediately previous profile. The values remain editable. The browser exporter includes the same JSON list. These examples have no assigned diagnosis or promised prediction outcome.

@@ -10,6 +10,7 @@ from pydantic import BaseModel, Field, model_validator
 HERE = Path(__file__).resolve().parent
 app = FastAPI(title='Cardio Explorer — academic demo')
 app.mount('/static', StaticFiles(directory=HERE / 'static'), name='static')
+app.mount('/reports', StaticFiles(directory=HERE.parent / 'reports'), name='reports')
 _bundle = None
 
 def bundle():

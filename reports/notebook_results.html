@@ -13,7 +13,7 @@
 <body>
 <main>
   <header>
-    <div><div class="eyebrow">Research / model evaluation</div><h1>Cardiovascular study</h1><p>A visual overview of the notebook’s data and model results.</p></div>
+    <div><nav style="margin-bottom:18px"><a href="/" style="font-weight:650">← Prediction demo</a></nav><div class="eyebrow">Research / model evaluation</div><h1>Cardiovascular study</h1><p>A visual overview of the notebook’s data and model results.</p></div>
     <div><div class="toolbar"><a id="source" href="notebook_results.json">View source JSON ↗</a><button id="choose-file" type="button">Load JSON file</button><input id="json-file" class="hidden" type="file" accept=".json,application/json" aria-label="Choose notebook results JSON"><button id="reload" type="button">Reload data</button></div><p id="source-label" class="source">Data source: notebook_results.json</p><div id="status" class="status" role="status" aria-live="polite">Loading results…</div></div>
   </header>
   <div id="error" class="error hidden" role="alert"></div>
@@ -34,7 +34,7 @@
       <section class="panel"><h2>Study context</h2><dl id="context" class="meta-list"></dl><details><summary>Software versions</summary><dl id="versions" class="meta-list"></dl></details><details><summary>Plausibility limits</summary><div id="limits" class="table-wrap"></div></details></section>
     </div>
     <section class="panel"><h2>Subgroup performance</h2><p class="caption">Saved subgroup metrics · age and sex groups overlap and should not be summed together</p><div id="subgroups" class="table-wrap"></div></section>
-    <section class="panel" style="margin-top:20px"><h2>Descriptive statistics</h2><p class="caption">Summary values only; individual records and distributions are not included in this JSON.</p><div id="statistics" class="table-wrap"></div></section>
+    <section class="panel" style="margin-top:20px"><h2>Descriptive statistics</h2><p class="caption">Cleaned study sample · descriptive summaries, not population estimates.</p><div id="descriptive-cards" class="cards"></div><div class="grid"><article><h3>Age distribution</h3><p class="caption">Number of records in each age band (years)</p><div id="age-histogram"></div></article><article><h3>CVD recorded in the dataset</h3><p class="caption">0 = absent · 1 = present</p><div id="target-bars"></div></article></div><details><summary>View full descriptive statistics table</summary><div id="statistics" class="table-wrap"></div></details></section>
     <details><summary>Inspect complete source data</summary><pre id="raw"></pre></details>
     <p class="footer">When served over HTTP, this page reads the adjacent JSON on each load. When opened directly, use Load JSON file to select the source. Select it again after regenerating the notebook results.</p>
   </div>
@@ -96,6 +96,13 @@ function render(d) {
   $('subgroups').innerHTML=table(['Group','N','Positive cases',...subgroupMetrics],subgroups.map(row=>[row.Group,number(row.N),number(row['Positive cases']),...subgroupMetrics.map(m=>score(row[m]))]));
   const stats=d.descriptive_statistics || {}, statColumns=[...new Set(Object.values(stats).flatMap(Object.keys))];
   const labels={age_years:'Age (years)',height:'Height (cm)',weight:'Weight (kg)',ap_hi:'Systolic BP (mmHg)',ap_lo:'Diastolic BP (mmHg)',bmi:'BMI (kg/m²)'};
+  const dist=d.descriptive_distributions;
+  $('descriptive-cards').innerHTML=[['Cleaned sample',number(d.exclusions['final rows'])],['Mean age',number(stats.age_years.mean)+' years'],['Mean BMI',number(stats.bmi.mean)+' kg/m²']].map(([label,value])=>'<article class="card"><div class="label">'+label+'</div><div class="value">'+value+'</div></article>').join('');
+  const barRows=(items,color)=>{const max=Math.max(...items.map(x=>x[1]),1);return items.map(([label,count])=>'<div style="margin:12px 0"><div style="display:flex;justify-content:space-between;gap:12px;font-size:13px"><span>'+escapeHTML(label)+'</span><strong>'+number(count)+'</strong></div><div style="height:22px;background:#f0f4ef;border-radius:4px;overflow:hidden"><div style="height:100%;width:'+(100*count/max)+'%;background:'+color+'"></div></div></div>').join('');};
+  if(dist && dist.n===d.exclusions['final rows']) {
+    $('age-histogram').innerHTML=barRows(dist.age.counts.map((n,i)=>[dist.age.edges[i]+'–<'+dist.age.edges[i+1],n]),'#16735d');
+    $('target-bars').innerHTML=barRows([['0 · CVD absent ('+pct(dist.target.absent/dist.n)+')',dist.target.absent],['1 · CVD present ('+pct(dist.target.present/dist.n)+')',dist.target.present]],'#9b527c');
+  } else { $('age-histogram').textContent='Distribution data not included in this results file.'; $('target-bars').textContent='Class counts not included in this results file.'; }
   $('statistics').innerHTML=table(['Variable',...statColumns],Object.entries(stats).map(([name,values])=>[labels[name] || name,...statColumns.map(key=>number(values[key]))]));
   $('raw').textContent=JSON.stringify(d,null,2);
   $('dashboard').classList.remove('hidden');
@@ -118,7 +125,7 @@ async function load() {
     $('status').textContent='Loaded at '+new Date().toLocaleTimeString();
   } catch(error) {
     $('status').textContent=results?'Reload failed · showing previously loaded data':'Unable to load results';
-    $('error').innerHTML='<strong>Could not load the data</strong><p>'+escapeHTML(error.message)+'</p><p>From the repository root, run:</p><pre>python3 -m http.server 8000 --directory project/reports</pre><p>Then open <a href="http://localhost:8000/notebook_results.html">http://localhost:8000/notebook_results.html</a>. Keep the HTML and JSON in the same folder.</p>';
+    $('error').innerHTML='<strong>Could not load the data</strong><p>'+escapeHTML(error.message)+'</p><p>From the repository root, run:</p><pre>python3 -m http.server 8000 --directory reports</pre><p>Then open <a href="http://localhost:8000/notebook_results.html">http://localhost:8000/notebook_results.html</a>. Keep the HTML and JSON in the same folder.</p>';
   } finally {$('reload').disabled=false;}
 }
 $('choose-file').addEventListener('click',()=>{$('json-file').value='';$('json-file').click();});
@@ -145,3 +152,4 @@ load();
 </script>
 </body>
 </html>
+

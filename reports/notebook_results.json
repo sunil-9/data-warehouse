@@ -329,5 +329,37 @@
       "Brier": 0.19283005949585177
     }
   ],
-  "uncertainty_note": "300 group-bootstrap resamples of fixed-model test predictions; conditional internal uncertainty, not retraining or external validation"
+  "uncertainty_note": "300 group-bootstrap resamples of fixed-model test predictions; conditional internal uncertainty, not retraining or external validation",
+  "descriptive_distributions": {
+    "n": 68581,
+    "age": {
+      "edges": [
+        25,
+        30,
+        35,
+        40,
+        45,
+        50,
+        55,
+        60,
+        65,
+        70
+      ],
+      "counts": [
+        3,
+        1,
+        1676,
+        8406,
+        10850,
+        17070,
+        17762,
+        12813,
+        0
+      ]
+    },
+    "target": {
+      "absent": 34649,
+      "present": 33932
+    }
+  }
 }
